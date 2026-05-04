@@ -197,10 +197,10 @@
         const scaleY = window.innerHeight / 1080;
         
         if (type === "dopamina") {
-            box.style.left = (rect.right - (isTablet ? -80 : 250)) + "px";
+            box.style.left = (rect.right - (isTablet ? 200 : 700)) + "px";
         }
         else if (type === "serotonina" && isTablet) {
-            box.style.left = (rect.right + 80) + "px";
+            box.style.left = (rect.right - 200) + "px";
         }
         else {
             box.style.left = (rect.right + (10 * scaleX)) + "px";
