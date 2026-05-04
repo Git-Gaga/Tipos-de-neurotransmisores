@@ -1,0 +1,226 @@
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tipos de neurotransmisores</title>
+    <style>
+    body { background-image: url('Fondo.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+    }
+
+    footer {
+        position: fixed;
+        bottom: 10px;
+        right: 15px;
+
+        font-size: 14px;
+        color: white;
+        opacity: 0.8;
+    }
+
+    .Cerebro {
+        width: clamp(300px, 70vw, 1200px);
+        height: auto;
+        
+    }
+
+    .container {
+        position: relative;
+        display: inline-block;
+        margin-top: 50px;
+    }
+
+    .zona {
+        position: absolute;
+        width: 9%;
+        height: 9%;
+        background-color: red;
+        opacity: 0.5;
+        border-radius: 50%;
+        cursor: pointer;
+
+        background: radial-gradient(circle, 
+        rgba(255, 0, 0, 1) 0%, 
+        rgba(255, 0, 0, 0.9) 50%, 
+        rgba(255, 0, 0, 0.1) 70%, 
+        rgba(255, 0, 0, 0) 100%
+    );
+    }  
+
+    .zona:hover {
+        background: radial-gradient(circle, 
+        rgba(255, 0, 0, 1) 0%, 
+        rgba(255, 0, 0, 0.95) 60%, 
+        rgba(255, 0, 0, 0.15) 70%, 
+        rgba(255, 0, 0, 0) 100%
+        );
+    }
+
+    .hint {
+        font-size: 15px;
+        color: #3a3a3a;
+        opacity: 0.8;
+    }
+
+    #serotonina {
+        top: 11%;
+        left: 72%;
+    }
+
+    #dopamina {
+        top: 49%;
+        left: 84%;
+    }
+
+    #noradrenalina {
+        bottom: 10%;
+        left: 56%;
+    }
+
+    #adrenalina {
+        top: 33%;
+        left: 22%;
+    }
+
+    #GABA {
+        top: 31%;
+        left: 6%;
+    }
+
+    #infoBox {
+        position: absolute;
+        background-color: #980dd8;
+        color: black;
+        padding: 15px 20px;
+        border-radius: 10px;
+        max-width: 25%;
+        display: none;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        flex-direction: row-reverse;
+        gap: 10px;
+        align-items: center;
+        font-size: 30px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    #infoImg {
+        max-width: 50%;
+        max-height: auto;
+        height: auto;
+        width: auto;
+    }
+
+    @media (max-width: 1366px) {
+        #infoBox {
+            padding: 8px;
+            font-size: 22px;
+            max-width: 35%;
+        }
+        #infoImg {
+            max-width: 50%;
+        }
+    }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="Cerebro.png" class="Cerebro">
+
+        <div class="zona" id="serotonina" onclick="showInfo('serotonina', this)"></div>
+        <div class="zona" id="dopamina" onclick="showInfo('dopamina', this)"></div>
+        <div class="zona" id="noradrenalina" onclick="showInfo('noradrenalina', this)"></div>
+        <div class="zona" id="adrenalina" onclick="showInfo('adrenalina', this)"></div>
+        <div class="zona" id="GABA" onclick="showInfo('GABA', this)"></div>
+    </div>
+
+    <p id="info"></p>
+
+    <div id="infoBox" onclick="closeBox()">
+        <img id="infoImg" style="display:none;">
+        <p id="infoText"></p>
+    </div>
+
+    <footer>
+        Creado por: Adriana Fernández, Elena Zurita y Gael Sánchez
+    </footer>
+
+    <script>
+    function showInfo(type, element) {
+        const box = document.getElementById("infoBox");
+        const text = document.getElementById("infoText");
+        const img = document.getElementById("infoImg");
+
+        const data = {
+            serotonina: {
+                text: "<strong>Serotonina</strong>: Regula el estado de ánimo. <strong>Ausencia:</strong> Baja motivación, apatía, dificultad para sentir placer",
+                img: "Serotonina.png"
+            },
+            dopamina: {
+                text: "<strong>Dopamina</strong>: Motivación y recompensa. <strong>Ausencia:</strong> Tristeza, ansiedad, cambios de ánimo",
+                img: "Dopamina.png"
+            },
+            noradrenalina: {
+                text: "<strong>Noradrenalina:</strong> Alerta y estrés. <strong>Ausencia:</strong> Falta de energía, poca concentración, cansancio mental.",
+                img: "Noradrenalina.png"
+            },
+            adrenalina: {
+                text: "<strong>Adrenalina</strong>: Respuesta de lucha o huida. <strong>Ausencia:</strong> Respuesta lenta ante estrés o peligro, poca activación física.",
+                img: "Adrenalina.png"
+            },
+            GABA: {
+                text: "<strong>GABA</strong>: Relajación del sistema nervioso. <strong>Ausencia:</strong> Ansiedad, dificultad para relajarse, sobreestimulación.",
+                img: "GABA.png"
+            }
+        };
+
+        text.innerHTML = data[type].text + "<br><span class='hint'>Haz clic para cerrar</span>";
+        img.src = data[type].img;
+        img.style.display = "block";
+
+        const rect = element.getBoundingClientRect();
+
+        const scaleX = window.innerWidth / 1920;
+        const scaleY = window.innerHeight / 1080;
+
+        if (type === "dopamina") {
+            box.style.left = (rect.right - (650 * scaleX)) + "px";
+        }
+        else {
+            box.style.left = (rect.right + (10 * scaleX)) + "px";
+        }
+
+        if (type === "noradrenalina" && (window.matchMedia("(max-width: 1366px)"))) {
+            box.style.top = (rect.top - (200 * scaleY)) + "px";
+        }
+        else { if (type === "noradrenalina") {
+            box.style.top = (rect.top - (150 * scaleY)) + "px";
+            }
+            else {
+                box.style.top = (rect.top - (80 * scaleY)) + "px";
+            }
+        }
+
+        if (window.matchMedia("(max-width: 1366px)").matches && type === "serotonina") {
+            box.style.left = (rect.right - (650 * scaleX)) + "px";
+        }
+
+        box.style.display = "flex";
+    }
+
+    function closeBox() {
+        document.getElementById("infoBox").style.display = "none";
+    }
+    </script>
+</body>
