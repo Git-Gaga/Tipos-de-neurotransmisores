@@ -191,34 +191,26 @@
 
         const rect = element.getBoundingClientRect();
 
+        const isTablet = window.matchMedia("(max-width: 1366px)").matches;
+        
         const scaleX = window.innerWidth / 1920;
         const scaleY = window.innerHeight / 1080;
-
-        if (window.matchMedia("(max-width: 1366px)").matches && type === "dopamina") {
-            box.style.left = (rect.right - 70) + "px";
+        
+        if (type === "dopamina") {
+            box.style.left = (rect.right - (isTablet ? 70 : 750 * scaleX)) + "px";
         }
-        else {if (type === "dopamina") {
-            box.style.left = (rect.right - (750 * scaleX)) + "px";
+        else if (type === "serotonina" && isTablet) {
+            box.style.left = (rect.right - 70) + "px";
         }
         else {
             box.style.left = (rect.right + (10 * scaleX)) + "px";
         }
-        }
         
-
-        if (type === "noradrenalina" && (window.matchMedia("(max-width: 1366px)").matches)) {
-            box.style.top = (rect.top - (200 * scaleY)) + "px";
+        if (type === "noradrenalina") {
+            box.style.top = (rect.top - (isTablet ? 200 * scaleY : 150 * scaleY)) + "px";
         }
-        else { if (type === "noradrenalina") {
-            box.style.top = (rect.top - (150 * scaleY)) + "px";
-            }
-            else {
-                box.style.top = (rect.top - (80 * scaleY)) + "px";
-            }
-        }
-
-        if (window.matchMedia("(max-width: 1366px)").matches && type === "serotonina") {
-            box.style.left = (rect.right - 70) + "px";
+        else {
+            box.style.top = (rect.top - (80 * scaleY)) + "px";
         }
 
         box.style.display = "flex";
